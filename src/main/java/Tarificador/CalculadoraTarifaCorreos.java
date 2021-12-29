@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package Tarificador;
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Diego
@@ -14,13 +17,16 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
     int m_com_box_pesos;
     int producto;
     int peso;
-    float vd; // Valor declarado
-    float av; // Aviso de recibo  
-    float resultado;
+    double vd; // Valor declarado
+    double av; // Aviso de recibo  
+    double resultado;
     
     
     public CalculadoraTarifaCorreos() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setSize(675,400);
+        this.setResizable(false);
     }
 
     /**
@@ -34,48 +40,39 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
 
         but_group_cat = new javax.swing.ButtonGroup();
         but_group_mod = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        rad_but_urgente = new javax.swing.JRadioButton();
+        com_box_pesos = new javax.swing.JComboBox<>();
         label_categoria = new javax.swing.JLabel();
-        rad_but_nacional = new javax.swing.JRadioButton();
+        ch_box_avisoRecibo = new javax.swing.JCheckBox();
         rad_but_internacional = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
-        rad_but_ordinaria = new javax.swing.JRadioButton();
-        rad_but_urgente = new javax.swing.JRadioButton();
-        label_producto = new javax.swing.JLabel();
         com_box_producto = new javax.swing.JComboBox<>();
         label_pesos = new javax.swing.JLabel();
-        com_box_pesos = new javax.swing.JComboBox<>();
-        ch_box_valorDeclarado = new javax.swing.JCheckBox();
-        ch_box_avisoRecibo = new javax.swing.JCheckBox();
+        rad_but_nacional = new javax.swing.JRadioButton();
         btn_calcular = new javax.swing.JButton();
+        label_producto = new javax.swing.JLabel();
+        rad_but_ordinaria = new javax.swing.JRadioButton();
         txtF_resultado = new javax.swing.JTextField();
+        ch_box_valorDeclarado = new javax.swing.JCheckBox();
         txtF_valorDeclarado = new javax.swing.JTextField();
-        label_info = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        label_logo = new javax.swing.JLabel();
+        label_titulo_empresa = new javax.swing.JLabel();
+        btn_herramientas = new javax.swing.JButton();
+        btn_actualidad = new javax.swing.JButton();
+        btn_tienda = new javax.swing.JButton();
+        btn_ayuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
 
-        label_categoria.setText("Seleccione la categoría");
-
-        but_group_cat.add(rad_but_nacional);
-        rad_but_nacional.setText("Nacional");
-
-        but_group_cat.add(rad_but_internacional);
-        rad_but_internacional.setText("Internacional");
-        rad_but_internacional.setEnabled(false);
-
-        jLabel1.setText("Seleccione el modelo de envío");
-
-        but_group_mod.add(rad_but_ordinaria);
-        rad_but_ordinaria.setText("Ordinaria");
-        rad_but_ordinaria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rad_but_ordinariaActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(255, 255, 0));
 
         but_group_mod.add(rad_but_urgente);
+        rad_but_urgente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         rad_but_urgente.setText("Urgente");
         rad_but_urgente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,17 +80,7 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
             }
         });
 
-        label_producto.setText("Seleccione el producto");
-
-        com_box_producto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartas y tarjetas postales", "Cartas certificadas" }));
-        com_box_producto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                com_box_productoActionPerformed(evt);
-            }
-        });
-
-        label_pesos.setText("Pesos");
-
+        com_box_pesos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         com_box_pesos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hasta 20g normalizadas", "Más de 20g(incluída) hasta 50g", "Más de 50g hasta 100g", "Más de 100 hasta 500g", "Más de 500g hasta 1.000g", "Más de 1.000 hasta 2.000g" }));
         com_box_pesos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,10 +88,37 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
             }
         });
 
-        ch_box_valorDeclarado.setText("Valor declarado");
+        label_categoria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        label_categoria.setText("Seleccione la categoría");
 
+        ch_box_avisoRecibo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         ch_box_avisoRecibo.setText("Aviso de recibo");
 
+        but_group_cat.add(rad_but_internacional);
+        rad_but_internacional.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rad_but_internacional.setText("Internacional");
+        rad_but_internacional.setEnabled(false);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Seleccione el modelo de envío");
+
+        com_box_producto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        com_box_producto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartas y tarjetas postales", "Cartas certificadas" }));
+        com_box_producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                com_box_productoActionPerformed(evt);
+            }
+        });
+
+        label_pesos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        label_pesos.setText("Pesos");
+
+        but_group_cat.add(rad_but_nacional);
+        rad_but_nacional.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rad_but_nacional.setText("Nacional");
+
+        btn_calcular.setBackground(new java.awt.Color(0, 61, 119));
+        btn_calcular.setForeground(new java.awt.Color(255, 255, 255));
         btn_calcular.setText("Calcular");
         btn_calcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,89 +126,180 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
             }
         });
 
+        label_producto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        label_producto.setText("Seleccione el producto");
+
+        but_group_mod.add(rad_but_ordinaria);
+        rad_but_ordinaria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rad_but_ordinaria.setText("Ordinaria");
+        rad_but_ordinaria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rad_but_ordinariaActionPerformed(evt);
+            }
+        });
+
         txtF_resultado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
+        ch_box_valorDeclarado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        ch_box_valorDeclarado.setText("Valor declarado");
+
         txtF_valorDeclarado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_pesos)
+                    .addComponent(ch_box_avisoRecibo)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_categoria)
+                            .addComponent(label_producto)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(ch_box_valorDeclarado)
+                                .addGap(31, 31, 31)
+                                .addComponent(txtF_valorDeclarado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(com_box_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(rad_but_ordinaria, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(rad_but_nacional, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(rad_but_internacional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(rad_but_urgente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(com_box_pesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_calcular, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(120, 120, 120))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(txtF_resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rad_but_nacional)
+                    .addComponent(rad_but_internacional)
+                    .addComponent(label_categoria))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(com_box_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rad_but_urgente)
+                            .addComponent(rad_but_ordinaria)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addComponent(label_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(label_pesos))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(com_box_pesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ch_box_avisoRecibo)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_calcular)
+                    .addComponent(txtF_valorDeclarado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ch_box_valorDeclarado))
+                .addGap(33, 33, 33)
+                .addComponent(txtF_resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        label_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo_correos.png"))); // NOI18N
+
+        label_titulo_empresa.setBackground(new java.awt.Color(0, 61, 119));
+        label_titulo_empresa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        label_titulo_empresa.setForeground(new java.awt.Color(0, 61, 119));
+        label_titulo_empresa.setText("Correos 2.0");
+
+        btn_herramientas.setBackground(new java.awt.Color(0, 61, 119));
+        btn_herramientas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_herramientas.setForeground(new java.awt.Color(255, 255, 255));
+        btn_herramientas.setText("Herramientas");
+
+        btn_actualidad.setBackground(new java.awt.Color(0, 61, 119));
+        btn_actualidad.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_actualidad.setForeground(new java.awt.Color(255, 255, 255));
+        btn_actualidad.setText("Actualidad");
+
+        btn_tienda.setBackground(new java.awt.Color(0, 61, 119));
+        btn_tienda.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_tienda.setForeground(new java.awt.Color(255, 255, 255));
+        btn_tienda.setText("Tienda");
+
+        btn_ayuda.setBackground(new java.awt.Color(0, 61, 119));
+        btn_ayuda.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_ayuda.setForeground(new java.awt.Color(255, 255, 255));
+        btn_ayuda.setText("Ayuda");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_logo)
+                    .addComponent(label_titulo_empresa))
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addComponent(btn_herramientas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_actualidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_tienda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_ayuda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_logo)
+                .addGap(18, 18, 18)
+                .addComponent(label_titulo_empresa)
+                .addGap(43, 43, 43)
+                .addComponent(btn_herramientas)
+                .addGap(18, 18, 18)
+                .addComponent(btn_actualidad)
+                .addGap(18, 18, 18)
+                .addComponent(btn_tienda)
+                .addGap(18, 18, 18)
+                .addComponent(btn_ayuda)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(label_categoria)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label_producto)
-                                    .addComponent(ch_box_avisoRecibo)
-                                    .addComponent(label_pesos))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(com_box_pesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(com_box_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(ch_box_valorDeclarado)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtF_valorDeclarado)))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(rad_but_ordinaria, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rad_but_nacional, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rad_but_internacional, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rad_but_urgente, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(btn_calcular))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtF_resultado, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                            .addComponent(label_info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(label_categoria)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rad_but_nacional)
-                    .addComponent(rad_but_internacional))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rad_but_ordinaria)
-                    .addComponent(rad_but_urgente))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label_producto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(com_box_producto))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_pesos)
-                    .addComponent(com_box_pesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ch_box_valorDeclarado)
-                    .addComponent(ch_box_avisoRecibo)
-                    .addComponent(txtF_valorDeclarado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btn_calcular)
-                .addGap(18, 18, 18)
-                .addComponent(txtF_resultado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label_info, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
-                .addGap(16, 16, 16))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -202,12 +307,11 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
 
     private void com_box_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_com_box_productoActionPerformed
         m_com_box_producto = com_box_producto.getSelectedIndex();
-        label_info.setText(Integer.toString(m_com_box_producto));
         switch(m_com_box_producto) { 
             case 0 -> producto = m_com_box_producto; // Cartas y tarjetas postales    
             case 1 -> {
                 producto = m_com_box_producto; // Cartas certificadas
-                av = (float) (1.60 + 0.34); // Se sumaría el aviso de recibo al resultado final                
+                av = 1.60 + 0.34; // Se sumaría el aviso de recibo al resultado final                
             }
         }
     }//GEN-LAST:event_com_box_productoActionPerformed
@@ -244,23 +348,21 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
     
     private void preciosPesosOrdinaria(){
         if(producto == 0) { // Cartas y tarjetas postales
-            label_info.setText("");
-            if(peso == 0) resultado = (float) 0.70;
-            if(peso == 1) resultado = (float) 0.80;
-            if(peso == 2) resultado = (float) 1.25;
-            if(peso == 3) resultado = (float) 2.50;
-            if(peso == 4) resultado = (float) 5.15;
-            if(peso == 5) resultado = (float) 5.60;
+            if(peso == 0) resultado = 0.70;
+            if(peso == 1) resultado = 0.80;
+            if(peso == 2) resultado = 1.25;
+            if(peso == 3) resultado = 2.50;
+            if(peso == 4) resultado = 5.15;
+            if(peso == 5) resultado = 5.60;
         }
 
         if(producto == 1){ // Cartas certificaddas  
-            label_info.setText("");
-            if(peso == 0) resultado = (float) 4.15;
-            if(peso == 1) resultado = (float) 4.25;
-            if(peso == 2) resultado = (float) 4.70;
-            if(peso == 3) resultado = (float) 5.95;
-            if(peso == 4) resultado = (float) 8.60;
-            if(peso == 5) resultado = (float) 9.05;
+            if(peso == 0) resultado = 4.15;
+            if(peso == 1) resultado = 4.25;
+            if(peso == 2) resultado = 4.70;
+            if(peso == 3) resultado = 5.95;
+            if(peso == 4) resultado = 8.60;
+            if(peso == 5) resultado = 9.05;
         }
     }
     
@@ -268,23 +370,21 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
     private void preciosPesosUrgentes(){
         // En el resultado ponemos el valor del producto y la suma del IVA, por si en un futuro cambia algún precio.
         if(producto == 0) { // Cartas y tarjetas postales URGENTES
-            label_info.setText("");
-            if(peso == 0) resultado = (float) (3.39 + 0.71); 
-            if(peso == 1) resultado = (float) (3.49 + 0.73); 
-            if(peso == 2) resultado = (float) (3.92 + 0.82); 
-            if(peso == 3) resultado = (float) (5.27 + 1.11); 
+            if(peso == 0) resultado = 3.39 + 0.71; 
+            if(peso == 1) resultado = 3.49 + 0.73; 
+            if(peso == 2) resultado = 3.92 + 0.82; 
+            if(peso == 3) resultado = 5.27 + 1.11; 
             if(peso == 4) resultado = 0; 
             if(peso == 5) resultado = 0;
         }
         
-        if(producto == 1) { // Cartas certificaddas URGENTES
-            label_info.setText("");                   
-            if(peso == 0) resultado = (float) (6.84 + 1.44);
-            if(peso == 1) resultado = (float) (6.94 + 1.46);
-            if(peso == 2) resultado = (float) (7.37 + 1.55);
-            if(peso == 3) resultado = (float) (8.72 + 1.83);
-            if(peso == 4) resultado = (float) (11.57 + 2.43);
-            if(peso == 5) resultado = (float) (12.05 + 2.53);
+        if(producto == 1) { // Cartas certificaddas URGENTES                
+            if(peso == 0) resultado = 6.84 + 1.44;
+            if(peso == 1) resultado = 6.94 + 1.46;
+            if(peso == 2) resultado = 7.37 + 1.55;
+            if(peso == 3) resultado = 8.72 + 1.83;
+            if(peso == 4) resultado = 11.57 + 2.43;
+            if(peso == 5) resultado = 12.05 + 2.53;
         }
     }
     
@@ -294,12 +394,10 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
     private void calcular(){
         if(rad_but_nacional.isSelected()) {
             
-            label_info.setText("");
-            
             if(rad_but_ordinaria.isSelected()) { // Ordinaria ( Sin IVA )
                 
                 preciosPesosOrdinaria();                              
-                txtF_resultado.setText(String.valueOf("Resultado = "+resultado+"€"));
+                txtF_resultado.setText(String.valueOf("Total = "+resultado+"€"));
                 
             } else if(rad_but_urgente.isSelected()) { // Urgente ( con IVA )
                 
@@ -307,48 +405,50 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
                 
                 if(resultado > 0) {
 
-                    label_info.setText("");
-                    
                     if(ch_box_avisoRecibo.isSelected()) {
                         
                         // Añadimos el valor total del Aviso de recibo si se selecciona la opción
                         resultado = resultado + av;     
-                        txtF_resultado.setText(String.valueOf("Resultado = "+resultado+"€"));
+                        txtF_resultado.setText(String.valueOf("Total = "+resultado+"€"));
                     }
                     
                     if(ch_box_valorDeclarado.isSelected()) {
                         
-                        // Controlamos si el usuario introduce decimales, por si acaso
-                        vd = Float.parseFloat(txtF_valorDeclarado.getText());
-                        
-                        // El tope hoy en día está en 3.000€ pero lo controlo hasta 500
-                        if(vd >= 1 && vd <= 50) resultado = (float) (resultado + 2.10); 
-                        else if(vd >= 51 && vd <= 100) resultado = (float) (resultado + 4.20); 
-                        else if(vd >= 101 && vd <= 150) resultado = (float) (resultado + 6.30);
-                        else if(vd >= 151 && vd <= 200) resultado = (float) (resultado + 8.40);
-                        else if(vd >= 201 && vd <= 250) resultado = (float) (resultado + 10.50);
-                        else if(vd >= 251 && vd <= 300) resultado = (float) (resultado + 12.60);
-                        else if(vd >= 301 && vd <= 350) resultado = (float) (resultado + 14.70);
-                        else if(vd >= 351 && vd <= 400) resultado = (float) (resultado + 16.80);
-                        else if(vd >= 401 && vd <= 450) resultado = (float) (resultado + 18.90);
-                        else if(vd >= 451 && vd <= 500) resultado = (float) (resultado + 20.00);
-                        else if(vd >= 501) resultado = (float) (resultado + 22.10);
-                        
-                        txtF_resultado.setText(String.valueOf("Resultado = "+resultado+"€"));
+                        if(!txtF_valorDeclarado.getText().isEmpty()){
+                            // Controlamos si el usuario introduce decimales, por si acaso
+                            vd = Double.parseDouble(txtF_valorDeclarado.getText());
+
+                            // El tope hoy en día está en 3.000€ pero lo controlo hasta 500
+                            if(vd <= 0){ resultado = 0; JOptionPane.showMessageDialog(null, "Debes añadir un número entero mayor que 0 al valor declarado"); }
+                            else if(vd >= 1 && vd <= 50) resultado = resultado + 2.10; 
+                            else if(vd >= 51 && vd <= 100) resultado = resultado + 4.20; 
+                            else if(vd >= 101 && vd <= 150) resultado = resultado + 6.30;
+                            else if(vd >= 151 && vd <= 200) resultado = resultado + 8.40;
+                            else if(vd >= 201 && vd <= 250) resultado = resultado + 10.50;
+                            else if(vd >= 251 && vd <= 300) resultado = resultado + 12.60;
+                            else if(vd >= 301 && vd <= 350) resultado = resultado + 14.70;
+                            else if(vd >= 351 && vd <= 400) resultado = resultado + 16.80;
+                            else if(vd >= 401 && vd <= 450) resultado = resultado + 18.90;
+                            else if(vd >= 451 && vd <= 500) resultado = resultado + 20.00;
+                            else if(vd >= 501) resultado = resultado + 22.10;
+
+                            txtF_resultado.setText(String.valueOf("Total = "+resultado+"€"));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El valor declarado se ha seleccionado, no puede estar vacío");
+                        }
                     } else {
-                        txtF_resultado.setText(String.valueOf("Resultado = "+resultado+"€"));
+                        txtF_resultado.setText(String.valueOf("Total = "+resultado+"€"));
                     }                                        
                 } else {
                     // Si hubiera un botón de enviar lo cancelaríamos
-                    txtF_resultado.setText(String.valueOf("Resultado = "+resultado+"€"));
-                    label_info.setText("No se pueden enviar más de 500g");                   
+                    txtF_resultado.setText(String.valueOf("Total = "+resultado+"€"));
+                    JOptionPane.showMessageDialog(null, "No se pueden enviar más de 500g");                
                 }
-                
             } else {
-                label_info.setText("Ups, se le ha pasado escoger el modelo de envío");
+                JOptionPane.showMessageDialog(null, "Ups, se le ha pasado escoger el modelo de envío");
             }
         } else {
-            label_info.setText("Para continuar, seleccione la categoría nacional");
+            JOptionPane.showMessageDialog(null, "Para continuar, seleccione la categoría nacional");
         }
     }
     
@@ -377,14 +477,18 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run() {             
                 new CalculadoraTarifaCorreos().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_actualidad;
+    private javax.swing.JButton btn_ayuda;
     private javax.swing.JButton btn_calcular;
+    private javax.swing.JButton btn_herramientas;
+    private javax.swing.JButton btn_tienda;
     private javax.swing.ButtonGroup but_group_cat;
     private javax.swing.ButtonGroup but_group_mod;
     private javax.swing.JCheckBox ch_box_avisoRecibo;
@@ -392,10 +496,13 @@ public class CalculadoraTarifaCorreos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> com_box_pesos;
     private javax.swing.JComboBox<String> com_box_producto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel label_categoria;
-    private javax.swing.JLabel label_info;
+    private javax.swing.JLabel label_logo;
     private javax.swing.JLabel label_pesos;
     private javax.swing.JLabel label_producto;
+    private javax.swing.JLabel label_titulo_empresa;
     private javax.swing.JRadioButton rad_but_internacional;
     private javax.swing.JRadioButton rad_but_nacional;
     private javax.swing.JRadioButton rad_but_ordinaria;
